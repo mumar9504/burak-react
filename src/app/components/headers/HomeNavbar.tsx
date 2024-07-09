@@ -15,7 +15,7 @@ export function HomeNavbar() {
           </Box>
           <Stack className="links">
             <Box className={"hover-line"}>
-              <NavLink to="/" activeClassName="underline">
+              <NavLink to="/" exact activeClassName="underline">
                 Home
               </NavLink>
             </Box>
@@ -43,8 +43,6 @@ export function HomeNavbar() {
                 Help
               </NavLink>
             </Box>
-            {/** BASKET */}
-
             {!authMember ? (
               <Box>
                 <Button variant="contained" className="login-button">
@@ -69,7 +67,7 @@ export function HomeNavbar() {
             <Box className={"service-txt"}>24 hours service</Box>
             <Box className={"signup"}>
               {!authMember ? (
-                <Button variant="contained" className={"signup-button"}> 
+                <Button variant="contained" className={"signup-button"}>
                   SIGN UP
                 </Button>
               ) : null}
