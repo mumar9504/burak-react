@@ -1,6 +1,6 @@
 import React from "react";
 // import { Box, Button, Container, Stack, Typography } from "@mui/material";
-import { Link, Route, Router, Switch, useLocation } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import HomePage from "./screens/homePage/index";
 import ProductsPage from "./screens/productsPage/index";
 import OrdersPage from "./screens/ordersPage/index";
@@ -16,7 +16,7 @@ import "../css/footer.css";
 
 function App() {
   const location = useLocation();
-
+ 
   return (
     <>
       {location.pathname === '/' ? <HomeNavbar /> : <OtherNavbar />}
