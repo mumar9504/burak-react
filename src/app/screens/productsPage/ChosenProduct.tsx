@@ -12,6 +12,7 @@ import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper";
 
 export default function ChosenProduct() {
+  // console.log("ChosenProduct render qilindi");
   return (
     <div className={"chosen-product"}>
       <Box className={"title"}>Product Detail</Box>

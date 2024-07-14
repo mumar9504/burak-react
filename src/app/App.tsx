@@ -11,17 +11,18 @@ import OtherNavbar from "./components/headers/OtherNavbar";
 import Footer from "./components/footer";
 import "../css/app.css";
 import "../css/navbar.css";
-import "../css/other-navbar.css"
+import "../css/other-navbar.css";
 import "../css/footer.css";
 
 function App() {
   const location = useLocation();
- 
+  console.log("location:", location);
+
   return (
     <>
-      {location.pathname === '/' ? <HomeNavbar /> : <OtherNavbar />}
+      {location.pathname === "/" ? <HomeNavbar /> : <OtherNavbar />}
       <Switch>
-        <Route exact path="/products">
+        <Route path="/products">
           <ProductsPage />
         </Route>
         <Route path="/orders">
