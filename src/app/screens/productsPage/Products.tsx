@@ -19,7 +19,7 @@ const products = [
   { productName: "Lavash", imagePath: "/img/lavash.webp" },
   { productName: "Cutlet", imagePath: "/img/cutlet.webp" },
   { productName: "Kebab", imagePath: "/img/kebab.webp" },
-  { productName: "Kebab", imagePath: "/img/kebab-fresh.webp" },
+  { productName: "Kebab Fresh", imagePath: "/img/kebab-fresh.webp" },
 ];
 
 export default function Products() {
