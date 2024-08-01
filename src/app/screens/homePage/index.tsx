@@ -13,6 +13,7 @@ import { createSelector } from "reselect";
 import { setPopularDishes } from "./slice";
 import { retrievePopularDishes } from "./selector";
 import { Product } from "../../../lib/types/product";
+import { log } from "console";
 
 /** REDUX SLICE & SELECTOR **/
 const actionDispatch = (dispatch: Dispatch) => ({
