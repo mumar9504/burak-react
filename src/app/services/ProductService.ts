@@ -21,10 +21,10 @@ class ProductService {
 
       return result.data;
     } catch (err) {
-      console.log("Error, getProducts:", err);
+      console.log("Error, getProduct:", err);
       throw err;
     }
   }
-}
+} 
 
 export default ProductService;
