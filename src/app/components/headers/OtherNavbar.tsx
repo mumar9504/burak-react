@@ -10,10 +10,20 @@ interface OtherNavbarProps {
   onRemove: (item: CartItem) => void;
   onDelete: (item: CartItem) => void;
   onDeleteAll: () => void;
+  setSignupOpen: (isOpen: boolean) => void;
+  setLoginOpen: (isOpen: boolean) => void;
 }
 
 export default function OtherNavbar(props: OtherNavbarProps) {
-  const {cartItems, onAdd, onRemove, onDelete, onDeleteAll } = props;
+  const {
+    cartItems,
+    onAdd,
+    onRemove,
+    onDelete,
+    onDeleteAll,
+    setSignupOpen,
+    setLoginOpen,
+  } = props;
   const authMember = null;
 
   return (
@@ -22,7 +32,11 @@ export default function OtherNavbar(props: OtherNavbarProps) {
         <Stack className="menu">
           <Box>
             <NavLink to="/">
-              <img className="brand-logo" src="/icons/burak.svg" alt="Brand Logo" />
+              <img
+                className="brand-logo"
+                src="/icons/burak.svg"
+                alt="Brand Logo"
+              />
             </NavLink>
           </Box>
           <Stack className="links">
@@ -53,7 +67,7 @@ export default function OtherNavbar(props: OtherNavbarProps) {
                 Help
               </NavLink>
             </Box>
-            <Basket 
+            <Basket
               cartItems={cartItems}
               onAdd={onAdd}
               onRemove={onRemove}
@@ -62,7 +76,11 @@ export default function OtherNavbar(props: OtherNavbarProps) {
             />
             {!authMember ? (
               <Box>
-                <Button variant="contained" className="login-button">
+                <Button
+                  variant="contained"
+                  className="login-button"
+                  onClick={() => setLoginOpen(true)}
+                >
                   Login
                 </Button>
               </Box>
