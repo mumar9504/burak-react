@@ -59,7 +59,12 @@ class MemberService {
   public async login(input: LoginInput): Promise<Member> {
     try {
       const url = this.path + "/member/login";
-      const result = await axios.post(url, input, {withCredentials: true});
+      const result = await axios.post(url, input, {withCredentials: true}); 
+                                                // withCredentials - frontenddan va backend oralig'ida cookielar oldi-berdisi uchun ishlatiladi  
+                                                // bu yerda sharti protokollari to'g'ri bo'lishi kerak
+                                                // agar frontend va backend 2xil domainda bo'lsa va ular
+                                                // https protokolida bo'lmasa, bu holatda cookielar oldi berdisi 
+                                                // amalga oshmaydi, withCredentials: true bo'lganida ham!
       console.log("login:", result);
 
       const member: Member = result.data.member;
@@ -69,6 +74,19 @@ class MemberService {
       return member;
     } catch (err) {
       console.log("Error, login:", err);
+      throw err;
+    }
+  }
+
+  public async logout(): Promise<void> {
+    try {
+      const url = this.path + "/member/logout";
+      const result = await axios.post(url, {}, {withCredentials: true});
+      console.log("logout:", result);
+
+      localStorage.removeItem("memberData");
+    } catch (err) {
+      console.log("Error, logout:", err);
       throw err;
     }
   }
