@@ -1,7 +1,7 @@
 import axios from "axios";
 import { serverApi } from "../../lib/config";
 import { CartItem } from "../../lib/types/search";
-import { Order, OrderInquiry, OrderItemInput } from "../../lib/types/order";
+import { Order, OrderInquiry, OrderItemInput, OrderUpdateInput } from "../../lib/types/order";
 
 class OrderService {
   private readonly path: string;
@@ -20,7 +20,7 @@ class OrderService {
         };
       });
 
-      const url = this.path + "/order/create";
+      const url = `${this.path}/order/create`;
       const result = await axios.post(url, orderItems, {
         withCredentials: true,
       });
@@ -49,31 +49,18 @@ class OrderService {
     }
   }
 
-  // public async updateOrder(input: any): Promise<any> {
-  //   try {
-  //     const url = this.path + "/order";
-  //     const result = await axios.put(url, input, { withCredentials: true });
-  //     console.log("updateOrder:", result);
+  public async updateOrder(input: OrderUpdateInput): Promise<Order> {
+    try {
+      const url = `${this.path}/order/update`;
+      const result = await axios.post(url, input, { withCredentials: true });
+      console.log("updateOrder:", result);
 
-  //     return result.data;
-  //   } catch (err) {
-  //     console.log("Error, updateOrder:", err);
-  //     throw err;
-  //   }
-  // }
-
-  // public async deleteOrder(input: any): Promise<any> {
-  //   try {
-  //     const url = this.path + "/order";
-  //     const result = await axios.delete(url, { data: input });
-  //     console.log("deleteOrder:", result);
-
-  //     return result.data;
-  //   } catch (err) {
-  //     console.log("Error, deleteOrder:", err);
-  //     throw err;
-  //   }
-  // }
+      return result.data;
+    } catch (err) {
+      console.log("Error, updateOrder:", err);
+      throw err;
+    }
+  }
 }
 
 export default OrderService;

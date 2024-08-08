@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import { Route, Switch, useLocation } from "react-router-dom";
 import HomePage from "./screens/homePage/index";
 import ProductsPage from "./screens/productsPage/index";
@@ -11,7 +10,6 @@ import OtherNavbar from "./components/headers/OtherNavbar";
 import Footer from "./components/footer";
 import useBasket from "./hooks/useBasket";
 import AuthenticationModal from "./components/auth";
-import { T } from "../lib/types/common";
 import { sweetTopSuccessAlert, sweetErrorHandling } from "../lib/sweetAlert";
 import { Messages } from "../lib/config";
 import MemberService from "./services/MemberService";
