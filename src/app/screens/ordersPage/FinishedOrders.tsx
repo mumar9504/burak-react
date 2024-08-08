@@ -1,33 +1,50 @@
 import React from "react";
 import { Box, Stack } from "@mui/material";
 import TabPanel from "@mui/lab/TabPanel";
+import { useSelector } from "react-redux";
+import { createSelector } from "reselect";
+import { retrieveFinishedOrders } from "./selector";
+import { Product } from "../../../lib/types/product";
+import { serverApi } from "../../../lib/config";
+import { Order, OrderItem } from "../../../lib/types/order";
 
-
+/** REDUX SLICE & SELECTOR **/
+const finishedOrdersRetriever = createSelector(
+  retrieveFinishedOrders,
+  (finishedOrders) => ({ finishedOrders })
+);
 
 export default function FinishedOrders() {
-    
+  const { finishedOrders } = useSelector(finishedOrdersRetriever);
+
   return (
     <TabPanel value={"3"}>
       <Stack>
-        {[1, 2].map((ele, index) => {
+        {finishedOrders?.map((order: Order) => {
           return (
-            <Box key={index} className={"order-main-box"}>
+            <Box key={order._id} className={"order-main-box"}>
               <Box className={"order-box-scroll"}>
-                {[1, 2, 3].map((ele, index) => {
+                {order?.orderItems?.map((item: OrderItem) => {
+                  const product: Product = order.productData.filter(
+                    (ele: Product) => item.productId === ele._id
+                  )[0];
+                  const imagePath = `${serverApi}/${product.productImages[0]}`;
                   return (
-                    <Box key={index} className={"orders-name-price"}>
+                    <Box key={item._id} className={"orders-name-price"}>
                       <img
-                        src={"/img/cutlet.webp"}
+                        src={imagePath}
                         className={"order-dish-img"}
-                        alt={"Cutlet"}
+                        alt={""}
                       />
-                      <p className={"title-dish"}>Cutlet</p>
+                      <p className={"title-dish"}>{product.productName}</p>
                       <Box className={"price-box"}>
-                        <p>$11</p>
+                        <p>${item.itemPrice}</p>
                         <img src={"/icons/close.svg"} alt="" />
-                        <p>3</p>
+                        <p>{item.itemQuantity}</p>
                         <img src={"/icons/pause.svg"} alt="" />
-                        <p style={{ marginLeft: "15px" }}>${11*3}</p>
+                        <p style={{ marginLeft: "15px" }}>
+                          ${item.itemQuantity * item.itemPrice}
+                        </p>
                       </Box>
                     </Box>
                   );
@@ -37,32 +54,41 @@ export default function FinishedOrders() {
               <Box className={"total-price-box"}>
                 <Box className={"box-total"}>
                   <p>Product price</p>
-                  <p>${11*3*2}</p>
-                  <img src={"/icons/plus.svg"} style={{ marginLeft: "20px" }} alt="" />
+                  <p>${order.orderTotal - order.orderDelivery}</p>
+                  <img
+                    src={"/icons/plus.svg"}
+                    style={{ marginLeft: "20px" }}
+                    alt=""
+                  />
                   <p>Delivery cost</p>
-                  <p>$5</p>
+                  <p>${order.orderDelivery}</p>
                   <img
                     src={"/icons/pause.svg"}
                     style={{ marginLeft: "20px" }}
                     alt=""
                   />
                   <p>Total</p>
-                  <p>${33*2+5}</p>
+                  <p>${order.orderTotal}</p>
                 </Box>
               </Box>
             </Box>
           );
         })}
 
-        {false && (
-          <Box display={"flex"} flexDirection={"row"} justifyContent={"center"}>
-            <img
-              src={"/icons/noimage-list.svg"}
-              style={{ width: 300, height: 300 }}
-              alt=""
-            />
-          </Box>
-        )}
+        {!finishedOrders ||
+          (finishedOrders.length === 0 && (
+            <Box
+              display={"flex"}
+              flexDirection={"row"}
+              justifyContent={"center"}
+            >
+              <img
+                src={"/icons/noimage-list.svg"}
+                style={{ width: 300, height: 300 }}
+                alt=""
+              />
+            </Box>
+          ))}
       </Stack>
     </TabPanel>
   );
